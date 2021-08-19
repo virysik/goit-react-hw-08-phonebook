@@ -1,7 +1,7 @@
 import { Li, Button, Span } from './ContactListElement.styles'
 import { IoIosContact } from 'react-icons/io'
 import { FaTrashAlt } from 'react-icons/fa'
-import { useRemoveContactByIdMutation } from 'services/contact-api'
+import { useRemoveContactByIdMutation } from 'redux/contact-api'
 import SpinnerTwo from 'components/SpinnerTwo'
 import PropTypes from 'prop-types'
 

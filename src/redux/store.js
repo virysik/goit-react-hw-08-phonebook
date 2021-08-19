@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { contactsApi } from 'services/contact-api'
+import { contactsApi } from 'redux/contact-api'
 import logger from 'redux-logger'
 import filterReducer from './phonebook/phonebook-reducer'
 import thunk from 'redux-thunk'

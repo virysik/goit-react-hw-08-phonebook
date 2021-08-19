@@ -4,7 +4,7 @@ import { GiButterflyWarning } from 'react-icons/gi'
 import {
   useGetContactsQuery,
   useAddNewContactMutation,
-} from 'services/contact-api'
+} from 'redux/contact-api'
 import toast from 'react-hot-toast'
 import SpinnerTwo from 'components/SpinnerTwo'
 

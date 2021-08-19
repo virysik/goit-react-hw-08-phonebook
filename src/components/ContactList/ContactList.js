@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { getFilter } from '../../redux/phonebook/contacts-selectors'
 import { Ul } from './ContactList.styles'
 import ContactListElement from '../ContactListElement'
-import { useGetContactsQuery } from 'services/contact-api'
+import { useGetContactsQuery } from 'redux/contact-api'
 
 function ContactList() {
   const { data } = useGetContactsQuery()
