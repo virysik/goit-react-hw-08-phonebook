@@ -1,9 +1,11 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { Ul } from './ContactList.styles'
-import { useFilteredContacts } from 'hooks/filteredContacts'
+import { contactsOperations, contactsSelectors } from 'redux/contacts'
 import ContactListElement from '../ContactListElement'
 
 function ContactList() {
-  const contactsArr = useFilteredContacts()
+  const contactsArr = useSelector(contactsSelectors.getContactsArr)
+  const dispatch = useDispatch()
 
   return (
     <Ul>
@@ -14,6 +16,7 @@ function ContactList() {
             contactId={id}
             contactName={name}
             contactNumber={number}
+            onDelete={() => dispatch(contactsOperations.fetchDeleteContact(id))}
           />
         )
       })}

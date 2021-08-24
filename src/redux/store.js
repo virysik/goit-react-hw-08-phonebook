@@ -1,21 +1,45 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { contactsApi } from 'redux/contact-api'
+import { getDefaultMiddleware, configureStore } from '@reduxjs/toolkit'
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
+import authReducer from './auth/auth-slice'
+import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
-import filterReducer from './phonebook/phonebook-reducer'
+import contactsReducer from './contacts/contacts-slice'
 import thunk from 'redux-thunk'
 
-let middleware = [thunk, contactsApi.middleware]
+const middleware = [
+  ...getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+  thunk,
+]
 if (process.env.NODE_ENV === `development`) {
   middleware.push(logger)
+}
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whiteList: ['token'],
 }
 
 const store = configureStore({
   reducer: {
-    [contactsApi.reducerPath]: contactsApi.reducer,
-    filter: filterReducer,
+    auth: persistReducer(authPersistConfig, authReducer),
+    contacts: contactsReducer,
   },
-  devTools: process.env.NODE_ENV !== 'production',
   middleware,
+  devTools: process.env.NODE_ENV !== 'production',
 })
 
+export const persistor = persistStore(store)
 export default store

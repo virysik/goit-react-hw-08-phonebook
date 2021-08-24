@@ -1,18 +1,17 @@
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { contactsOperations, contactsSelectors } from 'redux/contacts'
 import { Form, Label, Input, Button } from './ContactForm.styles'
 import { GiButterflyWarning } from 'react-icons/gi'
-import {
-  useGetContactsQuery,
-  useAddNewContactMutation,
-} from 'redux/contact-api'
 import toast from 'react-hot-toast'
 import SpinnerTwo from 'components/SpinnerTwo'
 
 function ContactForm() {
   const [name, setName] = useState('')
   const [number, setNumber] = useState('')
-  const { data } = useGetContactsQuery()
-  const [addNewContact, { isLoading }] = useAddNewContactMutation()
+  const items = useSelector(contactsSelectors.getItems)
+  const dispatch = useDispatch()
+  const isLoading = useSelector(contactsSelectors.getIsLoading)
 
   const handleInputChange = (e) => {
     const { name, value } = e.currentTarget
@@ -44,10 +43,10 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const normalizedName = name.toLowerCase()
-    const contactExists = data.find(
+    const contactExists = items.find(
       ({ name }) => name.toLowerCase() === normalizedName,
     )
-    const numberExists = data.find((contact) => contact.number === number)
+    const numberExists = items.find((contact) => contact.number === number)
 
     if (contactExists) {
       showAlert(name)
@@ -61,11 +60,7 @@ function ContactForm() {
       return
     }
 
-    try {
-      await addNewContact({ name, number })
-    } catch (error) {
-      toast('Error occured')
-    }
+    dispatch(contactsOperations.fetchAddContact({ name, number }))
     resetFormInputs()
   }
 

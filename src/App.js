@@ -1,36 +1,37 @@
-import { Container, Title, TitleContacts } from './App.styles'
-import { TiContacts } from 'react-icons/ti'
-import { IoIosContacts } from 'react-icons/io'
-import { Toaster } from 'react-hot-toast'
-import { useGetContactsQuery } from 'redux/contact-api'
-import ContactForm from './components/ContactForm'
-import Filter from './components/Filter'
-import ContactList from './components/ContactList'
-import Spinner from './components/Spinner'
+import AppBar from 'components/AppBar'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { authOperations } from 'redux/auth'
+import HomeView from 'views/HomeView'
+import SignUpView from 'views/SignUpView'
+import LoginView from 'views/LoginView'
+import ContactsView from 'views/ContactsView'
 
 function App() {
-  const { data } = useGetContactsQuery()
-
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser())
+  }, [dispatch])
   return (
-    <Container>
-      <Title>
-        <TiContacts /> Phonebook
-      </Title>
-      <ContactForm />
-      {data ? (
-        <>
-          <TitleContacts>
-            <IoIosContacts />
-            Contacts
-          </TitleContacts>
-          <Filter />
-          <ContactList />
-        </>
-      ) : (
-        <Spinner />
-      )}
-      <Toaster />
-    </Container>
+    <>
+      <AppBar />
+      <Switch>
+        <Route path="/" exact>
+          <HomeView />
+        </Route>
+        <Route path="/users/signup">
+          <SignUpView />
+        </Route>
+        <Route path="/users/login">
+          <LoginView />
+        </Route>
+        <Route path="/users/current">
+          <ContactsView />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    </>
   )
 }
 

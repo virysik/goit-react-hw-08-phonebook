@@ -1,12 +1,18 @@
 import { Li, Button, Span } from './ContactListElement.styles'
 import { IoIosContact } from 'react-icons/io'
 import { FaTrashAlt } from 'react-icons/fa'
-import { useRemoveContactByIdMutation } from 'redux/contact-api'
+import { useSelector } from 'react-redux'
+import { contactsSelectors } from 'redux/contacts'
 import SpinnerTwo from 'components/SpinnerTwo'
 import PropTypes from 'prop-types'
 
-function ContactListElement({ contactId, contactName, contactNumber }) {
-  const [removeContactById, { isLoading }] = useRemoveContactByIdMutation()
+function ContactListElement({
+  contactId,
+  contactName,
+  contactNumber,
+  onDelete,
+}) {
+  const isLoading = useSelector(contactsSelectors.getIsLoading)
 
   return (
     <Li>
@@ -16,7 +22,7 @@ function ContactListElement({ contactId, contactName, contactNumber }) {
       {`${contactName}: ${contactNumber}`}
       <Button
         type="button"
-        onClick={() => removeContactById(contactId)}
+        onClick={() => onDelete(contactId)}
         disabled={isLoading}
       >
         {isLoading ? <SpinnerTwo size={14} /> : <FaTrashAlt />}
@@ -31,4 +37,5 @@ ContactListElement.propTypes = {
   contactId: PropTypes.string.isRequired,
   contactName: PropTypes.string.isRequired,
   contactNumber: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
