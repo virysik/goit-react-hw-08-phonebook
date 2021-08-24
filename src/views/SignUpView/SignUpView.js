@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useHistory } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { authOperations } from 'redux/auth'
 
@@ -7,7 +6,7 @@ export default function SignUpView() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const history = useHistory()
+
   const dispatch = useDispatch()
 
   const handleChange = ({ target: { name, value } }) => {
@@ -29,7 +28,6 @@ export default function SignUpView() {
     setName('')
     setEmail('')
     setPassword('')
-    history.push('/users/current')
   }
 
   return (

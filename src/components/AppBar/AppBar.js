@@ -13,7 +13,6 @@ const styles = {
     borderBottom: '1px solid #2A363B',
   },
 }
-//const isLoggedIn = false
 
 export default function AppBar() {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn)

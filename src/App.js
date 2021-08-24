@@ -26,7 +26,7 @@ function App() {
         <Route path="/users/login">
           <LoginView />
         </Route>
-        <Route path="/users/current">
+        <Route path="/contacts">
           <ContactsView />
         </Route>
         <Redirect to="/" />

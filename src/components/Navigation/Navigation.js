@@ -6,7 +6,7 @@ export default function Navigation() {
         <NavLink to="/" exact>
           MainPage
         </NavLink>
-        <NavLink to="/users/current">Contacts</NavLink>
+        <NavLink to="/contacts">Contacts</NavLink>
       </ul>
     </nav>
   )

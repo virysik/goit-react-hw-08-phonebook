@@ -1,34 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
+  fetchContactsApi,
+  fetchPostNewContact,
   removeContactById,
   updateContactById,
 } from '../../services/contacts-api'
-import axios from 'axios'
-
-const token = {
-  set(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
-  },
-  unset() {
-    axios.defaults.headers.common.Authorization = ''
-  },
-}
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
-  async (_, thunkAPI) => {
-    const state = thunkAPI.getState()
-    const persistedToken = state.auth.token
-
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue()
-    }
-
-    token.set(persistedToken)
+  async () => {
     try {
-      const { data } = await axios.get('/contacts')
-
-      return data
+      const contacts = await fetchContactsApi()
+      return contacts
     } catch (error) {
       console.log(error)
     }
@@ -37,18 +20,10 @@ export const fetchContacts = createAsyncThunk(
 
 export const fetchAddContact = createAsyncThunk(
   'contacts/addContact',
-  async (contact, thunkAPI) => {
-    const state = thunkAPI.getState()
-    const persistedToken = state.auth.token
-
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue()
-    }
-
-    token.set(persistedToken)
+  async (contact) => {
     try {
-      const { data } = await axios.post('/contacts', contact)
-      return data
+      const contacts = await fetchPostNewContact(contact)
+      return contacts
     } catch (error) {
       console.log(error)
     }

@@ -6,11 +6,15 @@ import ContactForm from 'components/ContactForm'
 import Filter from 'components/Filter'
 import ContactList from 'components/ContactList'
 import Spinner from 'components/Spinner'
-import { useSelector } from 'react-redux'
-import { contactsSelectors } from 'redux/contacts'
+import { useSelector, useDispatch } from 'react-redux'
+import { contactsSelectors, contactsOperations } from 'redux/contacts'
+import { useEffect } from 'react'
 
 export default function ContactsView() {
   const contacts = useSelector(contactsSelectors.getItems)
+  const dispatch = useDispatch()
+
+  useEffect(() => dispatch(contactsOperations.fetchContacts()), [dispatch])
 
   return (
     <>
