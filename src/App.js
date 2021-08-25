@@ -1,10 +1,11 @@
 import AppBar from 'components/AppBar'
 import { lazy, Suspense } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { authOperations } from 'redux/auth'
 import PrivateRoute from 'components/PrivateRoute'
+import PublicRoute from 'components/PublicRoute'
 
 const HomeView = lazy(() =>
   import('views/HomeView' /* webpackChunkName: "home-view" */),
@@ -29,19 +30,18 @@ function App() {
       <AppBar />
       <Switch>
         <Suspense fallback={<p>Loading...</p>}>
-          <Route path="/" exact>
+          <PublicRoute path="/" exact>
             <HomeView />
-          </Route>
-          <Route path="/users/signup">
+          </PublicRoute>
+          <PublicRoute path="/users/signup" restricted redirectTo="/">
             <SignUpView />
-          </Route>
-          <Route path="/users/login">
+          </PublicRoute>
+          <PublicRoute path="/users/login" restricted redirectTo="/contacts">
             <LoginView />
-          </Route>
-          <PrivateRoute path="/contacts">
+          </PublicRoute>
+          <PrivateRoute path="/contacts" redirectTo="/users/login">
             <ContactsView />
           </PrivateRoute>
-          <Redirect to="/" />
         </Suspense>
       </Switch>
     </>

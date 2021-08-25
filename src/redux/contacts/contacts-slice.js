@@ -29,7 +29,6 @@ const contactsSlice = createSlice({
   extraReducers: {
     [fetchContacts.fulfilled]: (state, action) => {
       state.items = action.payload
-      console.log(action)
       state.status = null
       state.error = null
     },
