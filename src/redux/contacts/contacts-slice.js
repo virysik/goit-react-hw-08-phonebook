@@ -10,11 +10,12 @@ const initialState = {
   filter: '',
   status: null,
   isLoading: false,
+  isDeleting: false,
   error: null,
 }
 
-const loading = 'Loading'
 const error = 'Error'
+const loading = 'Loading'
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -28,6 +29,7 @@ const contactsSlice = createSlice({
   extraReducers: {
     [fetchContacts.fulfilled]: (state, action) => {
       state.items = action.payload
+      console.log(action)
       state.status = null
       state.error = null
     },
@@ -41,32 +43,35 @@ const contactsSlice = createSlice({
     },
     [fetchAddContact.fulfilled]: (state, action) => {
       state.items = [...state.items, action.payload]
-      state.status = null
       state.error = null
+      state.status = null
       state.isLoading = false
     },
     [fetchAddContact.pending]: (state) => {
-      state.status = loading
       state.error = null
+      state.status = loading
       state.isLoading = true
     },
     [fetchAddContact.rejected]: (state) => {
-      state.status = null
       state.error = error
+      state.status = null
       state.isLoading = false
     },
     [fetchDeleteContact.fulfilled]: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload)
       state.status = null
       state.error = null
+      state.isDeleting = false
     },
     [fetchDeleteContact.pending]: (state) => {
       state.status = loading
       state.error = null
+      state.isDeleting = true
     },
     [fetchDeleteContact.rejected]: (state) => {
       state.status = null
       state.error = error
+      state.isDeleting = false
     },
   },
 })

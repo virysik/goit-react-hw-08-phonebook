@@ -1,3 +1,14 @@
+import { useSelector } from 'react-redux'
+import { authSelectors } from 'redux/auth'
+
 export default function HomeView() {
-  return <h1>Welcome to our Phonebook service 🖐🏻 </h1>
+  const name = useSelector(authSelectors.getUserName)
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn)
+
+  return (
+    <h1>
+      Welcome to our Phonebook service 🖐🏻
+      {isLoggedIn && `, ${name}`}
+    </h1>
+  )
 }

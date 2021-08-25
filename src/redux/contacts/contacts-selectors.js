@@ -3,6 +3,7 @@ import { createSelector } from 'reselect'
 export const getItems = (state) => state.contacts.items
 export const getFilter = (state) => state.contacts.filter
 export const getIsLoading = (state) => state.contacts.isLoading
+export const getIsDeleting = (state) => state.contacts.isDeleting
 
 export const getContactsArr = createSelector(
   [getItems, getFilter],

@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { authOperations } from 'redux/auth'
+import { useHistory } from 'react-router'
 
 export default function SignUpView() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const history = useHistory()
 
   const dispatch = useDispatch()
 
@@ -28,6 +30,7 @@ export default function SignUpView() {
     setName('')
     setEmail('')
     setPassword('')
+    history.push('/')
   }
 
   return (
