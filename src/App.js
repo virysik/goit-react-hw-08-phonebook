@@ -4,10 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { authOperations } from 'redux/auth'
-//import HomeView from 'views/HomeView'
-//import SignUpView from 'views/SignUpView'
-//import LoginView from 'views/LoginView'
-//import ContactsView from 'views/ContactsView'
+import PrivateRoute from 'components/PrivateRoute'
 
 const HomeView = lazy(() =>
   import('views/HomeView' /* webpackChunkName: "home-view" */),
@@ -31,7 +28,7 @@ function App() {
     <>
       <AppBar />
       <Switch>
-        <Suspense fallback={<p>Загружаем...</p>}>
+        <Suspense fallback={<p>Loading...</p>}>
           <Route path="/" exact>
             <HomeView />
           </Route>
@@ -41,9 +38,9 @@ function App() {
           <Route path="/users/login">
             <LoginView />
           </Route>
-          <Route path="/contacts">
+          <PrivateRoute path="/contacts">
             <ContactsView />
-          </Route>
+          </PrivateRoute>
           <Redirect to="/" />
         </Suspense>
       </Switch>
