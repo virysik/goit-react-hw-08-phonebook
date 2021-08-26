@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { authOperations } from 'redux/auth'
+import toast, { Toaster } from 'react-hot-toast'
+import { useSelector, useDispatch } from 'react-redux'
+import { authSelectors, authOperations } from 'redux/auth'
 
 export default function SignUpView() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
+  const error = useSelector(authSelectors.getError)
   const dispatch = useDispatch()
 
   const handleChange = ({ target: { name, value } }) => {
@@ -25,6 +26,9 @@ export default function SignUpView() {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(authOperations.register({ name, email, password }))
+    if (error) {
+      toast.error(error)
+    }
     setName('')
     setEmail('')
     setPassword('')
@@ -55,6 +59,7 @@ export default function SignUpView() {
         />
       </label>
       <button type="submit">SignUp</button>
+      <Toaster />
     </form>
   )
 }

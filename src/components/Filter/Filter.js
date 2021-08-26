@@ -7,7 +7,7 @@ function Filter() {
 
   return (
     <Label>
-      Find contacts by name:
+      Find contacts by name or number:
       <Input
         onChange={(e) => dispatch(changeFilter(e.target.value))}
         type="text"
