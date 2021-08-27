@@ -1,10 +1,12 @@
+import React from 'react'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { contactsOperations, contactsSelectors } from 'redux/contacts'
-import { Form, Label, Input, Button } from './ContactForm.styles'
+import { Form, Label, Input } from './ContactForm.styles'
 import { GiButterflyWarning } from 'react-icons/gi'
 import toast from 'react-hot-toast'
 import SpinnerTwo from 'components/SpinnerTwo'
+import Button from '@material-ui/core/Button'
 
 function ContactForm() {
   const [name, setName] = useState('')
@@ -35,7 +37,6 @@ function ContactForm() {
 
   const showAlert = (value) => {
     toast(`${value} is already in contacts`, {
-      style: { color: '#456173' },
       icon: <GiButterflyWarning />,
     })
   }
@@ -66,44 +67,35 @@ function ContactForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <>
-        <Label>
-          Name
-          <Input
-            onChange={handleInputChange}
-            type="text"
-            name="name"
-            autoComplete="off"
-            value={name}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-            required
-          />
-        </Label>
-        <Label>
-          Number
-          <Input
-            onChange={handleInputChange}
-            type="tel"
-            name="number"
-            autoComplete="off"
-            value={number}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-            required
-          />
-        </Label>
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <SpinnerTwo size={18} />
-              Adding...
-            </>
-          ) : (
-            'Add contact'
-          )}
-        </Button>
-      </>
+      <Label>
+        Name
+        <Input
+          onChange={handleInputChange}
+          type="text"
+          name="name"
+          autoComplete="off"
+          value={name}
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="The name can only consist of letters, apostrophes, dashes and spaces. For example: Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+          required
+        />
+      </Label>
+      <Label>
+        Number
+        <Input
+          onChange={handleInputChange}
+          type="tel"
+          name="number"
+          autoComplete="off"
+          value={number}
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="The phone number must consist of numbers and can contain spaces, dashes, parentheses and can start with +"
+          required
+        />
+      </Label>
+      <Button type="submit" variant="contained" color="primary">
+        {isLoading ? <SpinnerTwo size={34} /> : 'Add contact'}
+      </Button>
     </Form>
   )
 }

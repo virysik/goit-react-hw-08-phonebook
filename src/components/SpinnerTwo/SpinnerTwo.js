@@ -1,6 +1,6 @@
 import styled from '@emotion/styled/macro'
 import { keyframes } from '@emotion/react'
-import { CgSpinner } from 'react-icons/cg'
+import { ImSpinner } from 'react-icons/im'
 
 const spin = keyframes`
 0% {
@@ -11,7 +11,7 @@ const spin = keyframes`
 }
 `
 
-const Spinner = styled(CgSpinner)`
+const Spinner = styled(ImSpinner)`
   animation: ${spin} 0.85s linear infinite;
 `
 

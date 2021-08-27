@@ -1,24 +1,26 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 export const Input = styled.input`
-  position: absolute;
-  top: 30px;
-  left: 0px;
-  min-width: 200px;
-  height: 20px;
-  padding: 4px 10px;
-  border: 2px solid #1b3c59;
-  border-radius: 2px;
+  min-width: 478px;
+  height: 40px;
+  padding: 8px 10px;
+  margin-bottom: 50px;
+  font-size: 24px;
+  border: 2px solid #000000;
+  border-radius: 4px;
   transition: border 250ms ease-in-out;
 
   &:hover,
   &:focus {
-    border: 2px solid #11bfae;
+    border: 2px solid #3f51b5;
   }
-`;
+`
 export const Label = styled.label`
-  position: relative;
-  margin-bottom: 50px;
-  color: #1b3c59;
+  color: #000000;
   font-size: 20px;
-`;
+`
+
+export const Wrapper = styled.div`
+  margin: 0 auto;
+  width: 500px;
+`

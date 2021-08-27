@@ -1,6 +1,6 @@
 import AppBar from 'components/AppBar'
 import { lazy, Suspense } from 'react'
-import { Switch } from 'react-router-dom'
+import { Switch, Redirect } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { authOperations } from 'redux/auth'
@@ -44,6 +44,7 @@ function App() {
           <PrivateRoute path="/contacts" redirectTo="/users/login">
             <ContactsView />
           </PrivateRoute>
+          <Redirect to="/" />
         </Suspense>
       </Switch>
     </>

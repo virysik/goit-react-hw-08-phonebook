@@ -1,27 +1,26 @@
 import { authSelectors, authOperations } from 'redux/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import toast, { Toaster } from 'react-hot-toast'
+import Button from '@material-ui/core/Button'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import { Wrapper, Span } from './UserMenu.styles'
 
 export default function UserMenu() {
   const dispatch = useDispatch()
   const email = useSelector(authSelectors.getUserEmail)
-  const error = useSelector(authSelectors.getError)
 
   return (
     <div>
-      <h2>{email}</h2>
-      <button
+      <Span>{email}</Span>
+      <AccountCircleIcon />
+      <Button
+        color="inherit"
         type="button"
         onClick={() => {
           dispatch(authOperations.logOut())
-          if (error) {
-            toast(error)
-          }
         }}
       >
-        LogOut
-      </button>
-      <Toaster />
+        <Wrapper>LogOut</Wrapper>
+      </Button>
     </div>
   )
 }

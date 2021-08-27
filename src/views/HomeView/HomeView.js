@@ -1,14 +1,17 @@
 import { useSelector } from 'react-redux'
 import { authSelectors } from 'redux/auth'
+import { Wrapper, Title } from './HomeView.styles'
 
 export default function HomeView() {
   const name = useSelector(authSelectors.getUserName)
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn)
 
   return (
-    <h1>
-      Welcome to our Phonebook service 🖐🏻
-      {isLoggedIn && `, ${name}`}
-    </h1>
+    <Wrapper>
+      <Title>
+        Welcome to our Phonebook service 🖐🏻
+        {isLoggedIn && `, ${name}`}
+      </Title>
+    </Wrapper>
   )
 }

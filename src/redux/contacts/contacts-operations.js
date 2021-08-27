@@ -3,7 +3,6 @@ import {
   fetchContactsApi,
   fetchPostNewContact,
   removeContactById,
-  updateContactById,
 } from '../../services/contacts-api'
 
 export const fetchContacts = createAsyncThunk(
@@ -35,18 +34,6 @@ export const fetchDeleteContact = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const contacts = await removeContactById(id)
-      return contacts
-    } catch (error) {
-      return rejectWithValue()
-    }
-  },
-)
-
-export const fetchUpdateContact = createAsyncThunk(
-  'contacts/updateContact',
-  async (id, { rejectWithValue }) => {
-    try {
-      const contacts = await updateContactById(id)
       return contacts
     } catch (error) {
       return rejectWithValue()

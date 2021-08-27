@@ -1,29 +1,26 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 export const Container = styled.div`
-  margin-top: 20px;
-  margin-left: 20px;
+  height: 100vh;
+  margin: 0 auto;
+  text-align: center;
   padding: 20px;
-  width: 420px;
-  background: #f2f2f0;
-  border: 4px double #1b3c59;
-  border-radius: 36px;
-  box-shadow: 4px 3px 20px rgba(27, 60, 89, 0.2);
-`;
+`
 
 export const Title = styled.h1`
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-top: 0px;
   margin-bottom: 25px;
-  font-size: 40px;
-  color: #456173;
-`;
+  font-size: 56px;
+  color: #000000;
+`
 export const TitleContacts = styled.h2`
   display: flex;
   align-items: center;
-  margin-top: 0px;
-  margin-bottom: 25px;
-  font-size: 30px;
-  color: #456173;
-`;
+  margin: 0px auto 20px;
+  justify-content: center;
+  font-size: 40px;
+  color: #000000;
+`

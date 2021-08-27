@@ -14,8 +14,3 @@ export const removeContactById = async (id) => {
   await axios.delete(`/contacts/${id}`)
   return id
 }
-
-export const updateContactById = async (id) => {
-  const { data } = await axios.patch(`/contacts/${id}`)
-  return data
-}

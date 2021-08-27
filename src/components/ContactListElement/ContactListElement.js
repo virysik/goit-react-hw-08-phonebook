@@ -1,11 +1,12 @@
-import { Li, Button, Span } from './ContactListElement.styles'
+import { Li, Div, Span } from './ContactListElement.styles'
 import { IoIosContact } from 'react-icons/io'
-import { FaTrashAlt } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { contactsSelectors, contactsOperations } from 'redux/contacts'
 import { useDispatch } from 'react-redux'
 import SpinnerTwo from 'components/SpinnerTwo'
 import PropTypes from 'prop-types'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 function ContactListElement({ contactId, contactName, contactNumber }) {
   const isDeleting = useSelector(contactsSelectors.getIsDeleting)
@@ -17,15 +18,18 @@ function ContactListElement({ contactId, contactName, contactNumber }) {
         <IoIosContact />
       </Span>
       {`${contactName}: ${contactNumber}`}
-      <Button
-        type="button"
-        onClick={() =>
-          dispatch(contactsOperations.fetchDeleteContact(contactId))
-        }
-        disabled={isDeleting}
-      >
-        {isDeleting ? <SpinnerTwo size={14} /> : <FaTrashAlt />}
-      </Button>
+      <Div>
+        <IconButton
+          type="button"
+          onClick={() =>
+            dispatch(contactsOperations.fetchDeleteContact(contactId))
+          }
+          disabled={isDeleting}
+          aria-label="delete"
+        >
+          {isDeleting ? <SpinnerTwo size={34} /> : <DeleteIcon />}
+        </IconButton>
+      </Div>
     </Li>
   )
 }

@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 export const Ul = styled.ul`
-  margin: 0;
-  margin-top: 56px;
+  margin: 0 auto;
+  max-width: 600px;
   padding: 0;
   list-style: none;
-`;
+`

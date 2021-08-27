@@ -17,26 +17,24 @@ export default function ContactsView() {
   useEffect(() => dispatch(contactsOperations.fetchContacts()), [dispatch])
 
   return (
-    <>
-      <Container>
-        <Title>
-          <TiContacts /> Phonebook
-        </Title>
-        <ContactForm />
-        {contacts.length > 0 ? (
-          <>
-            <TitleContacts>
-              <IoIosContacts />
-              Contacts
-            </TitleContacts>
-            <Filter />
-            <ContactList />
-          </>
-        ) : (
-          <Spinner />
-        )}
-        <Toaster />
-      </Container>
-    </>
+    <Container>
+      <Title>
+        <TiContacts /> Phonebook
+      </Title>
+      <ContactForm />
+      {contacts.length > 0 ? (
+        <>
+          <TitleContacts>
+            <IoIosContacts />
+            Contacts
+          </TitleContacts>
+          <Filter />
+          <ContactList />
+        </>
+      ) : (
+        <Spinner />
+      )}
+      <Toaster />
+    </Container>
   )
 }
