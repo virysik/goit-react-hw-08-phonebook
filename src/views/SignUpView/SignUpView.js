@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { authOperations } from 'redux/auth'
-import TextField from '@material-ui/core/TextField'
+import { useSelector, useDispatch } from 'react-redux'
+import { authSelectors, authOperations } from 'redux/auth'
 import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import toast from 'react-hot-toast'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,7 @@ export default function SignUpView() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const err = useSelector(authSelectors.getError)
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -40,9 +42,12 @@ export default function SignUpView() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     dispatch(authOperations.register({ name, email, password }))
+    if (err) {
+      toast.error(err)
+    }
     setName('')
     setEmail('')
     setPassword('')

@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { authOperations } from 'redux/auth'
-import { useDispatch } from 'react-redux'
-import TextField from '@material-ui/core/TextField'
+import { authSelectors, authOperations } from 'redux/auth'
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import toast from 'react-hot-toast'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,7 @@ export default function LoginView() {
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
   const classes = useStyles()
+  const err = useSelector(authSelectors.getError)
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -40,6 +42,9 @@ export default function LoginView() {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(authOperations.logIn({ email, password }))
+    if (err) {
+      toast.error(err)
+    }
     setEmail('')
     setPassword('')
   }

@@ -1,9 +1,8 @@
-import React from 'react'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { contactsOperations, contactsSelectors } from 'redux/contacts'
-import { Form, Label, Input } from './ContactForm.styles'
 import { GiButterflyWarning } from 'react-icons/gi'
+import { Form, Label, Input } from './ContactForm.styles'
 import toast from 'react-hot-toast'
 import SpinnerTwo from 'components/SpinnerTwo'
 import Button from '@material-ui/core/Button'
@@ -12,8 +11,8 @@ function ContactForm() {
   const [name, setName] = useState('')
   const [number, setNumber] = useState('')
   const items = useSelector(contactsSelectors.getItems)
-  const dispatch = useDispatch()
   const isLoading = useSelector(contactsSelectors.getIsLoading)
+  const dispatch = useDispatch()
 
   const handleInputChange = (e) => {
     const { name, value } = e.currentTarget
@@ -62,6 +61,7 @@ function ContactForm() {
     }
 
     dispatch(contactsOperations.fetchAddContact({ name, number }))
+    toast.success(`${name} has been added to your contacts list`)
     resetFormInputs()
   }
 

@@ -20,6 +20,9 @@ export const register = createAsyncThunk(
       token.set(data.token)
       return data
     } catch (error) {
+      if (!error.response) {
+        throw new Error('Register failed')
+      }
       return rejectWithValue(error.response.data)
     }
   },
@@ -33,6 +36,9 @@ export const logIn = createAsyncThunk(
       token.set(data.token)
       return data
     } catch (error) {
+      if (!error.response) {
+        throw new Error('LogIn failed')
+      }
       return rejectWithValue(error.response.data)
     }
   },
