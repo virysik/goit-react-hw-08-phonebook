@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { contactsSelectors, contactsOperations } from 'redux/contacts'
 import { IoIosContact } from 'react-icons/io'
+import { AiOutlineUserDelete } from 'react-icons/ai'
 import { Li, Div, Span } from './ContactListElement.styles'
 import SpinnerTwo from 'components/SpinnerTwo'
 import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
+import toast from 'react-hot-toast'
 
 function ContactListElement({ contactId, contactName, contactNumber }) {
   const isDeleting = useSelector(contactsSelectors.getIsDeleting)
@@ -16,6 +18,9 @@ function ContactListElement({ contactId, contactName, contactNumber }) {
   const removeItem = () => {
     dispatch(contactsOperations.fetchDeleteContact(contactId))
     setIsDel(true)
+    toast(`${contactName} is deleted`, {
+      icon: <AiOutlineUserDelete />,
+    })
   }
 
   return (
